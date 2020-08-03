@@ -20,55 +20,59 @@ public class main {
 			
 			System.out.println("Please input identity card number here, e.g. A123456(7) then input A1234567\r\n");
 			
-		} catch (Exception e) { }
-		
-		number = scannerOne.next();
-		
-		while (!Character.isLetter(number.charAt(0)) || number.length() != 8) {
-			
-			System.out.println("Please input the card number of correct formatting!");
-			
 			number = scannerOne.next();
 			
-		}
-		
-		try {
+			while (!Character.isLetter(number.charAt(0)) || number.length() != 8) {
+				
+				System.out.println("Please input the card number of correct formatting!\r\n");
+				
+				number = scannerOne.next();
+				
+			}
 			
-			Double.parseDouble(number.substring(1, 8));
+			try {
+				
+				Double.parseDouble(number.substring(1, 8));
+				
+			} catch (NumberFormatException e) {
+				
+				System.out.println("\r\nPlease input the card number of correct formatting!\r\n");
+				
+				number = scannerOne.next();
+				
+				System.out.println("\r\n");
+				
+			}
 			
-		} catch (NumberFormatException e) {
+			String[] numbers = number.split("");
 			
-			System.out.println("Please input the card number of correct formatting!");
+			numbers[0] = Integer.toString((number.charAt(0) - 64));
 			
-		}
-		
-		String[] numbers = number.split("");
-		
-		numbers[0] = Integer.toString((number.charAt(0) - 64));
-		
-		int sum = 0;
-		
-		int j = 8;
-		
-		for (var i = 0; i < numbers.length - 1; i++) {
+			int sum = 0;
 			
-			sum += (Integer.parseInt(numbers[i]) * j);
+			int j = 8;
 			
-			j--;
+			for (var i = 0; i < numbers.length - 1; i++) {
+				
+				sum += (Integer.parseInt(numbers[i]) * j);
+				
+				j--;
+				
+			}
 			
-		}
-		
-		if ((sum + Integer.parseInt(numbers[7])) % 11 == 0) {
+			if ((sum + Integer.parseInt(numbers[7])) % 11 == 0) {
+				
+				System.out.println("\r\nIdentity card number was correct.");
+				
+			} else {
+				
+				System.out.println("\r\nIdentity card number was incorrect.");
+				
+			}
 			
-			System.out.println("Identity card number was correct.");
+			scannerOne.close();
 			
-		} else {
-			
-			System.out.println("Identity card number was incorrect.");
-			
-		}
-		
-		scannerOne.close();
+		} catch (Exception e) { }
 		
 	}
 
